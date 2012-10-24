@@ -7,9 +7,10 @@
           li = message
 
   .field
-    = f.label :title
-    = f.text_field :title
+    = f.text_field :title, placeholder: "What name of the course?", class: "input-xlarge"
   .field
-    = f.label :description
-    = f.text_area :description
-  .actions = f.submit 'Save'
+    = f.text_area :description, placeholder: "What you will learn?", cols: 70, rows: 5
+  .actions
+    = f.submit 'Save', class: "btn btn-large"
+    '
+    = link_to 'Back', courses_path, class: "btn btn-large"

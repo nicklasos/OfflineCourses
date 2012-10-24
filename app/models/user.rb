@@ -8,4 +8,17 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
+  
+  has_many :subscriptions
+  has_many :courses, :through => :subscriptions
+
+  # if user subscribed for some course
+  def subscribed?(course_id)
+    begin
+      self.courses.find(course_id)
+      return true
+    rescue ActiveRecord::RecordNotFound
+      return false
+    end
+  end
 end

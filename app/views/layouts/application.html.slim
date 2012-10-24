@@ -1,0 +1,44 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    meta name="description" content="Offline courses and meetups"
+    meta name="author" content="Nicklasos"
+    title= content_for?(:title) ? yield(:title) : "Offline Courses and Meetups"
+    = csrf_meta_tags
+
+    /! Le HTML5 shim, for IE6-8 support of HTML elements
+    /[if lt IE 9]
+      = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
+
+    = stylesheet_link_tag "application", :media => "all"
+
+  body
+    header#header
+      .container
+        .row
+          .span8
+            h1
+              | Offline
+              '
+              = link_to "Courses", courses_path
+              '
+              small and Meetups
+          .span4.signup
+            - if user_signed_in?
+              br
+              = link_to current_user.email, "#"
+              '
+              b= link_to "Sign out", destroy_user_session_path, {method: "delete"}
+            - else
+              = link_to "Sign up for free!", new_user_registration_path, class: "btn btn-success btn-large"
+              '
+              = link_to "or Sign in", new_user_session_path, class: "btn btn-large"
+
+    .container
+      = yield
+
+
+    = javascript_include_tag "application"

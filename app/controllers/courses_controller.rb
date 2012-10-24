@@ -1,83 +1,60 @@
 class CoursesController < ApplicationController
-  # GET /courses
-  # GET /courses.json
+  before_filter :authenticate_user!, :except => [:index, :show]
+
   def index
     @courses = Course.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @courses }
-    end
   end
 
-  # GET /courses/1
-  # GET /courses/1.json
   def show
     @course = Course.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @course }
-    end
   end
 
-  # GET /courses/new
-  # GET /courses/new.json
   def new
     @course = Course.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @course }
-    end
   end
 
-  # GET /courses/1/edit
   def edit
     @course = Course.find(params[:id])
   end
 
-  # POST /courses
-  # POST /courses.json
   def create
     @course = Course.new(params[:course])
+    @course.owner_id = current_user.id
 
-    respond_to do |format|
-      if @course.save
-        format.html { redirect_to @course, notice: 'Course was successfully created.' }
-        format.json { render json: @course, status: :created, location: @course }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
-      end
+    if @course.save
+      redirect_to @course, notice: 'Course was successfully created.'
+    else
+      render action: "new"
     end
   end
 
-  # PUT /courses/1
-  # PUT /courses/1.json
   def update
     @course = Course.find(params[:id])
 
     respond_to do |format|
       if @course.update_attributes(params[:course])
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
-        format.json { head :no_content }
+        redirect_to @course, notice: 'Course was successfully updated.'
       else
-        format.html { render action: "edit" }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
+        render action: "edit"
       end
     end
   end
 
-  # DELETE /courses/1
-  # DELETE /courses/1.json
   def destroy
     @course = Course.find(params[:id])
     @course.destroy
 
-    respond_to do |format|
-      format.html { redirect_to courses_url }
-      format.json { head :no_content }
-    end
+    redirect_to courses_url
+  end
+
+  def subscribe
+    course = Course.find(params[:id])
+    current_user.courses << course
+    redirect_to course_path, notice: "You have subscribed for this course"
+  end
+
+  def unsubscribe
+    Subscription.destroy_all(:user_id => current_user.id, :course_id => params[:id])
+    redirect_to course_path, notice: "You have unsabscribed from this course"
   end
 end

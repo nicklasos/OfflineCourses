@@ -1,12 +1,23 @@
-p#notice = notice
+.row
+  .span3
+    .panel
+      h4= @course.title
+      p= @course.description
+      br
+      p
+        strong Owner:
+        '
+        = @course.owner.email
+      p
+        strong Members:
+        '
+        = @course.users.count
 
-p
-  strong Title:
-  = @course.title
-p
-  strong Description:
-  = @course.description
+      br
+      - if current_user && current_user.subscribed?(@course.id)
+        = link_to "Unsabscribe from this course", unsubscribe_course_path, class: "btn", :method => :delete
+      - else
+        = link_to "Subscribe to this course", subscribe_course_path, class: "btn", :method => :post
+  .span9
+    = link_to "Add new event", "#", class: "btn btn-success btn-large"
 
-= link_to 'Edit', edit_course_path(@course)
-'|
-= link_to 'Back', courses_path

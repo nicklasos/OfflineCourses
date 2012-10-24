@@ -1,0 +1,27 @@
+center
+  h1 The best place to manage your courses
+  a href="#" class="btn btn-success btn-large signup" Sing up for free!
+
+hr
+
+.container
+  .row
+    .span12
+
+  .row
+    .span4
+      h3 Popular courses
+      - @courses.each do |course|
+        h4= link_to course.title, course 
+    /!
+      .span4
+        h3 What is meetups?
+        p Meetups is ....
+      .span4
+        h3 What is courses?
+        p Courses is...
+
+  .row
+    .span6
+      br
+      = link_to "See all courses", courses_path, class: "btn"
