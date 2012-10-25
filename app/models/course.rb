@@ -2,6 +2,8 @@ class Course < ActiveRecord::Base
   attr_accessible :description, :title
   validates :title, :length => { :in => 3..50 }
 
+  has_many :events
+
   has_many :subscriptions
   has_many :users, :through => :subscriptions, :dependent => :destroy
 

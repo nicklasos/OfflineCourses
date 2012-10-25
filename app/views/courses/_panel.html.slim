@@ -1,0 +1,16 @@
+- admin_email = course.admin.email
+.panel
+  h4= course.title
+  p= course.description
+  br
+  p
+    strong admin:
+    '
+    = admin_email
+  p
+    strong Members:
+    '
+    = course.users.count
+  br
+  br
+  == render 'courses/subscribe_buttons', course: course, admin_email: admin_email

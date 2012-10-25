@@ -1,11 +1,17 @@
+/ Show subscribe and unsubscribe buttons
+/ If user ligged in as admin, then show admin buttons to manage course
 - if current_user && current_user.subscribed?(course.id)
   - if admin_email == current_user.email
-    = link_to edit_course_path(course), class: "btn btn-mini tip", "data-original-title" => "Edit" do
+    = link_to edit_course_path(course), class: "btn btn-small tip", "data-original-title" => "Edit" do
       i.icon-pencil
     '
-    = link_to course, method: :delete, confirm: "Are you sure?", class: "btn btn-mini tip", "data-original-title" => "Delete" do
+    = link_to course, method: :delete, confirm: "Are you sure?", class: "btn btn-small tip", "data-original-title" => "Delete" do
       i.icon-trash
+    '
+    = link_to new_course_event_path(@course), class: "btn btn-success btn-small tip", "data-original-title" => "Add new event" do
+      i.icon-plus.icon-white
+
   - else
-    = link_to "Unsabscribe from this course", unsubscribe_course_path, class: "btn", :method => :delete
+    = link_to "Unsabscribe from this course", unsubscribe_course_path(course), class: "btn", :method => :delete
 - else
-  = link_to "Subscribe to this course", subscribe_course_path, class: "btn", :method => :post
+  = link_to "Subscribe to this course", subscribe_course_path(course), class: "btn", :method => :post

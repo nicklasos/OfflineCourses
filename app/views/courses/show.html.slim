@@ -1,21 +1,12 @@
-- admin_email = @course.admin.email
 .row
   .span3
-    .panel
-      h4= @course.title
-      p= @course.description
-      br
-      p
-        strong admin:
-        '
-        = admin_email
-      p
-        strong Members:
-        '
-        = @course.users.count
-      br
-
-      == render 'subscribe_buttons', course: @course, admin_email: admin_email
-
+    == render 'panel', course: @course
   .span9
-    = link_to "Add new event", "#", class: "btn btn-success btn-large"
+    .main
+      h1 Events
+
+      - @course.events.each do |event|
+        p
+          = event.time
+          '
+          = event.subject
