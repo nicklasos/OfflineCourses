@@ -19,9 +19,10 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(params[:course])
-    @course.owner_id = current_user.id
+    current_user.courses << @course
 
     if @course.save
+      Subscription.add_admin(current_user, @course)
       redirect_to @course, notice: 'Course was successfully created.'
     else
       render action: "new"
@@ -31,12 +32,10 @@ class CoursesController < ApplicationController
   def update
     @course = Course.find(params[:id])
 
-    respond_to do |format|
-      if @course.update_attributes(params[:course])
-        redirect_to @course, notice: 'Course was successfully updated.'
-      else
-        render action: "edit"
-      end
+    if @course.update_attributes(params[:course])
+      redirect_to @course, notice: 'Course was successfully updated.'
+    else
+      render action: "edit"
     end
   end
 

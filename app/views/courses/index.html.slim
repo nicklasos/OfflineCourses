@@ -4,12 +4,6 @@
       .courses
         h3= link_to course.title, course
         p= course.description
-        = link_to edit_course_path(course), class: "btn btn-mini tip", "data-original-title" => "Edit" do
-          i.icon-pencil
-        '
-        = link_to course, method: :delete, confirm: "Are you sure?", class: "btn btn-mini tip", "data-original-title" => "Delete" do
-          i.icon-trash
-
     br
     br
     = link_to 'Create new course', new_course_path, class: "btn btn-large"

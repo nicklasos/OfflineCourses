@@ -2,11 +2,11 @@ class Course < ActiveRecord::Base
   attr_accessible :description, :title
   validates :title, :length => { :in => 3..50 }
 
-  belongs_to :user
   has_many :subscriptions
-  has_many :users, :through => :subscriptions
+  has_many :users, :through => :subscriptions, :dependent => :destroy
 
-  def owner
-    User.find(self.owner_id)   
+  # PHP zashquar style 
+  def admin
+    User.find(Subscription.where(:course_id => self.id, :admin => true).first.user_id)
   end
 end

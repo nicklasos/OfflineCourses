@@ -1,3 +1,4 @@
+- admin_email = @course.admin.email
 .row
   .span3
     .panel
@@ -5,19 +6,33 @@
       p= @course.description
       br
       p
-        strong Owner:
+        strong admin:
         '
-        = @course.owner.email
+        = admin_email
       p
         strong Members:
         '
         = @course.users.count
-
       br
+
+
+
       - if current_user && current_user.subscribed?(@course.id)
-        = link_to "Unsabscribe from this course", unsubscribe_course_path, class: "btn", :method => :delete
+
+        - if admin_email == current_user.email
+          = link_to edit_course_path(@course), class: "btn btn-mini tip", "data-original-title" => "Edit" do
+            i.icon-pencil
+          '
+          = link_to @course, method: :delete, confirm: "Are you sure?", class: "btn btn-mini tip", "data-original-title" => "Delete" do
+            i.icon-trash
+        - else
+          = link_to "Unsabscribe from this course", unsubscribe_course_path, class: "btn", :method => :delete
+
       - else
         = link_to "Subscribe to this course", subscribe_course_path, class: "btn", :method => :post
+
+
+
   .span9
     = link_to "Add new event", "#", class: "btn btn-success btn-large"
 
