@@ -1,0 +1,32 @@
+.row
+  .span3
+    == render 'courses/panel', course: @course
+  .span9
+    .main
+      h1 Event
+
+      h3= @event.time
+      p= @event.subject
+
+      
+      .row
+        .span9
+          hr
+          - unless Visitor.already_go?(@event, current_user)
+            = link_to go_course_event_path(@course, @event), method: :post, class: "btn tip", "data-original-title" => "I'll go" do
+              i.icon-thumbs-up
+          - else
+              = link_to pass_course_event_path(@course, @event), method: :post, class: "btn tip", "data-original-title" => "I'll pass" do
+                i.icon-thumbs-down
+
+      br
+      .row
+        .span9
+          h4 Who will be
+          - if @event.users.any?
+            - @event.users.each do |user|
+              = link_to "#", class: "tip", "data-original-title" => user.email do
+                = gravatar_image_tag(user.email.gsub('spam', 'mdeering'), alt: user.email, :gravatar => { :size => 50 })
+              '
+          - else
+            p No one yet :(

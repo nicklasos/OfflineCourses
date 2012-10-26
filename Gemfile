@@ -19,6 +19,7 @@ gem 'jquery-rails'
 
 gem 'devise'
 gem 'slim-rails'
+gem 'gravatar_image_tag'
 
 #group :production do
 #  gem 'pg'

@@ -7,6 +7,4 @@
 
       - @course.events.each do |event|
         p
-          = event.time
-          '
-          = event.subject
+          = link_to "#{event.time} #{event.subject}", [@course, event]

@@ -1,6 +1,11 @@
 Offlinecourses::Application.routes.draw do
   resources :courses do
-    resources :events
+    resources :events do
+      member do
+        post "go"
+        post "pass"
+      end
+    end
 
     #subscribe
     member do
