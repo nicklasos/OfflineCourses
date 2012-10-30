@@ -5,6 +5,6 @@ class Visitor < ActiveRecord::Base
   belongs_to :event
 
   def self.already_go?(event, user)
-      Visitor.where(:event_id => event.id, :user_id => user.id).any?
+      Visitor.where(event_id: event.id, user_id: user.id).any?
   end
 end

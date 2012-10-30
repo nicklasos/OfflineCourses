@@ -19,9 +19,9 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(params[:course])
-    current_user.courses << @course
 
     if @course.save
+      current_user.courses << @course
       Subscription.add_admin(current_user, @course)
       redirect_to @course, notice: 'Course was successfully created.'
     else
@@ -53,7 +53,7 @@ class CoursesController < ApplicationController
   end
 
   def unsubscribe
-    Subscription.destroy_all(:user_id => current_user.id, :course_id => params[:id])
+    Subscription.destroy_all(user_id: current_user.id, course_id: params[:id])
     redirect_to course_path, notice: "You have unsabscribed from this course"
   end
 end

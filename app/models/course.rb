@@ -1,5 +1,5 @@
 class Course < ActiveRecord::Base
-  attr_accessible :description, :title
+  attr_accessible :description, :title, :date_begin, :date_end
   validates :title, :length => { :in => 3..50 }
 
   has_many :events

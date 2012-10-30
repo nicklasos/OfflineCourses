@@ -32,7 +32,7 @@ class EventsController < ApplicationController
   end
 
   def pass
-    Visitor.destroy_all(:user_id => current_user.id, :event_id => params[:id])
+    Visitor.destroy_all(user_id: current_user.id, event_id: params[:id])
     redirect_to course_path(params[:course_id])
   end
 end

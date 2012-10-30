@@ -11,6 +11,10 @@
     strong Members:
     '
     = course.users.count
+  p
+    strong Begins at:
+    '
+    = course.date_begin.strftime("%Y-%m-%d")
   br
   br
   == render 'courses/subscribe_buttons', course: course, admin_email: admin_email
