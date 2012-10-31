@@ -3,7 +3,13 @@
     == render 'courses/panel', course: @course
   .span9
     .main
-      h2= @event.time.strftime("%Y-%m-%d %H:%m")
+      .row
+        .span6
+          h2= @event.time.strftime("%Y-%m-%d %H:%m")
+        .span3
+          = link_to edit_course_event_path(@course, @event), class: "btn btn-small tip", "data-original-title" => "Edit this event" do
+            i.icon-pencil
+        
       p= @event.subject
 
       br

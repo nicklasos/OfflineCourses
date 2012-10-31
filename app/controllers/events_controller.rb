@@ -7,6 +7,17 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @event = Event.find(params[:id])
+    @course = Course.find(params[:course_id])
+  end
+
+  def update
+    @event = Event.find(params[:id])
+    if @event.update_attributes(params[:event])
+      redirect_to course_event_path(params[:course_id], @event)
+    else
+      render action: "edit"
+    end
   end
 
   def new
@@ -15,7 +26,6 @@ class EventsController < ApplicationController
   end
 
   def create
-    
     @course = Course.find(params[:course_id])
     @event = @course.events.build(params[:event])
 
