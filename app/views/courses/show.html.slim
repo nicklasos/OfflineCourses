@@ -5,6 +5,6 @@
     .main
       h1 Events
 
-      - @course.events.each do |event|
+      - @course.events.order("time DESC").each do |event|
         p
-          = link_to "#{event.time} #{event.subject}", [@course, event]
+          = link_to "#{event.time.strftime("%Y-%m-%d %H:%m")} #{event.subject}", [@course, event]

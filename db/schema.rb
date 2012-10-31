@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031114635) do
+ActiveRecord::Schema.define(:version => 20121031134315) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -33,11 +33,11 @@ ActiveRecord::Schema.define(:version => 20121031114635) do
   end
 
   create_table "events", :force => true do |t|
-    t.string   "time"
+    t.datetime "time",       :limit => 255, :default => '2012-10-31 13:47:11'
     t.text     "subject"
     t.integer  "course_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
   end
 
   create_table "subscriptions", :force => true do |t|

@@ -3,7 +3,7 @@
     == render 'courses/panel', course: @course
   .span9
     .main
-      h2= @event.time
+      h2= @event.time.strftime("%Y-%m-%d %H:%m")
       p= @event.subject
 
       br

@@ -7,7 +7,11 @@
           li = message
 
   .field
-    = f.text_field :time, placeholder: "When the next event?", class: "input-xlarge"
+    = f.date_select :time
+    | &nbsp; &nbsp; &nbsp;
+    = f.time_select :time, :ignore_date => true
+    
+
   .field
     = f.text_area :subject, placeholder: "What subject of event?", cols: 70, rows: 5
   .actions
