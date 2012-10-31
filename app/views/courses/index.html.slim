@@ -1,8 +1,21 @@
 .row
   .span10
+    ul.nav.nav-tabs
+      li class="#{active('all')}"
+        a href="/" All
+      li class="#{active('my')}"
+        a href="?my" My
+    
+.row
+  .span10
     - @courses.each do |course|
       .courses
-        h3= link_to course.title, course
+        h3
+          = link_to course.title, course
+          '
+          = course.city
+          '
+          small= course.date_begin.strftime("%Y-%m-%d")
         p= course.description
     br
     br

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031134315) do
+ActiveRecord::Schema.define(:version => 20121031161050) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20121031134315) do
     t.integer  "user_id"
     t.datetime "date_begin",  :default => '2012-10-29 14:49:13'
     t.datetime "date_end"
+    t.string   "city"
   end
 
   create_table "events", :force => true do |t|

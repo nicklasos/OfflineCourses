@@ -2,7 +2,12 @@ class CoursesController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show]
 
   def index
-    @courses = Course.all
+    if params.key? :my
+      authenticate_user!
+      @courses = current_user.courses
+    else
+      @courses = Course.all
+    end
   end
 
   def show

@@ -9,16 +9,13 @@
   .field
     = f.text_field :title, placeholder: "What name of the course?", class: "input-xlarge"
   .field
+    = f.text_field :city, placeholder: "Where will you meet?"
+  .field
     = f.text_area :description, placeholder: "What you will learn?", cols: 70, rows: 5
   .field
     | When it's begin?
     '
     = f.date_select :date_begin
-  /!
-    .field
-      | When it's end?
-      '
-      = f.date_select :date_end
   .actions
     = f.submit 'Save', class: "btn btn-large"
     '
