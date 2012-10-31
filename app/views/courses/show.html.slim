@@ -7,4 +7,7 @@
 
       - @course.events.order("time DESC").each do |event|
         p
-          = link_to "#{event.time.strftime("%Y-%m-%d %H:%m")} #{event.subject}", [@course, event]
+          = link_to [@course, event] do
+            strong= event.time.strftime("%Y-%m-%d %H:%m")
+            '
+            =event.subject
