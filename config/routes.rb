@@ -5,6 +5,7 @@ Offlinecourses::Application.routes.draw do
         post "go"
         post "pass"
       end
+      resources :comments
     end
 
     #subscribe

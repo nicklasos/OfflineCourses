@@ -28,7 +28,8 @@ h1, h2, h3, h4, strong {
 }
 
 .panel {
-  border-right: 1px solid #eee;
+  // border-right: 1px solid #eee;
+  min-height: 500px;
   h4 {
     margin-top: 0;
   }
@@ -38,5 +39,16 @@ h1, h2, h3, h4, strong {
 .main {
   h1 {
     margin-top: 0;
+  }
+}
+
+.comment {
+  height: 60px;
+  width: 450px;
+}
+
+.comments {
+  .media {
+    margin-bottom: 30px;
   }
 }

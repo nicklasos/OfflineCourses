@@ -3,30 +3,42 @@
     == render 'courses/panel', course: @course
   .span9
     .main
-      h1 Event
-
-      h3= @event.time
+      h2= @event.time
       p= @event.subject
 
-      
+      br
       .row
         .span9
-          hr
           - unless Visitor.already_go?(@event, current_user)
             = link_to go_course_event_path(@course, @event), method: :post, class: "btn tip", "data-original-title" => "I'll go" do
               i.icon-thumbs-up
           - else
               = link_to pass_course_event_path(@course, @event), method: :post, class: "btn tip", "data-original-title" => "I'll pass" do
                 i.icon-thumbs-down
-
-      br
-      .row
-        .span9
-          h4 Who will be
+          '
           - if @event.users.any?
             - @event.users.each do |user|
               = link_to "#", class: "tip", "data-original-title" => user.email do
-                = gravatar_image_tag(user.email.gsub('spam', 'mdeering'), alt: user.email, :gravatar => { :size => 50 })
+                = gravatar_image_tag(user.email.gsub('spam', 'mdeering'), alt: user.email, :gravatar => { :size => 30 })
               '
-          - else
-            p No one yet :(
+  
+      br
+      .row
+        .span5
+          h4 Comments
+          .comments
+            - @event.comments.each do |comment|
+              .media
+                = link_to "#", class: "pull-left" do
+                  = gravatar_image_tag(comment.user.email.gsub('spam', 'mdeering'), alt: comment.user.email, :gravatar => { :size => 50 })
+                .media-body
+                  h5.media-heading= comment.user.email
+                  p= comment.comment
+        
+      .row
+        .span9
+          = form_for [@course, @event, @event.comments.build] do |f|
+            .field
+              = f.text_area :comment, placeholder: "Leave a comment...", class: "comment"
+            .actions
+              = f.submit 'Go', class: "btn"

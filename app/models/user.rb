@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   
   has_many :subscriptions
   has_many :courses, :through => :subscriptions
+  
+  has_many :comments
 
   # if user subscribed for some course
   def subscribed?(course_id)

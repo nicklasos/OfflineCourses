@@ -4,4 +4,8 @@ class Event < ActiveRecord::Base
 
   has_many :visitors
   has_many :users, :through => :visitors
+
+  has_many :comments
+
+  validates :subject, :presence => true
 end

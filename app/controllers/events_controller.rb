@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  before_filter :authenticate_user!
+
   def show
     @event = Event.find(params[:id])
     @course = Course.find(params[:course_id])
@@ -18,9 +20,9 @@ class EventsController < ApplicationController
     @event = @course.events.build(params[:event])
 
     if @event.save
-      redirect_to course_path(@course), notice: "New event created!"
+      redirect_to course_event_path(@course, @event), notice: "New event created!"
     else
-      redirect_to :root, alert: "Fail"
+      redirect_to course_path(@course)
     end
 
   end
