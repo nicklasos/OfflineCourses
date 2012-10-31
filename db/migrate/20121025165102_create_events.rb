@@ -4,6 +4,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string :time
       t.text :subject
       t.integer :course_id
+      t.datetime :time, :default => Time.now
 
       t.timestamps
     end
