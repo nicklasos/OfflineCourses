@@ -7,8 +7,9 @@
         .span6
           h2= @event.time.strftime("%Y-%m-%d %H:%m")
         .span3
-          = link_to edit_course_event_path(@course, @event), class: "btn btn-small tip", "data-original-title" => "Edit this event" do
-            i.icon-pencil
+          - if @course.admin.email == current_user.email
+            = link_to edit_course_event_path(@course, @event), class: "btn btn-small tip", "data-original-title" => "Edit this event" do
+              i.icon-pencil
         
       p= @event.subject
 

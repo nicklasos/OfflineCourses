@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :check_owner, :only => [:edit, :update, :destroy]
 
   def index
     if params.key? :my
@@ -60,5 +61,15 @@ class CoursesController < ApplicationController
   def unsubscribe
     Subscription.destroy_all(user_id: current_user.id, course_id: params[:id])
     redirect_to course_path, notice: "You have unsabscribed from this course"
+  end
+
+  private
+
+  def check_owner
+    @course = Course.find(params[:id])
+
+    if (current_user.id != @course.admin.id)
+      render :nothing => true, :status => :unauthorized # 401
+    end
   end
 end

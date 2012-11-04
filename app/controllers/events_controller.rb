@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :check_owner, :only => [:edit, :update, :destroy]
 
   def show
     @event = Event.find(params[:id])
@@ -46,5 +47,15 @@ class EventsController < ApplicationController
   def pass
     Visitor.destroy_all(user_id: current_user.id, event_id: params[:id])
     redirect_to course_event_path(params[:course_id], params[:id])
+  end
+
+  private
+
+  def check_owner
+    @course = Course.find(params[:course_id])
+
+    if (current_user.id != @course.admin.id)
+      render :nothing => true, :status => :unauthorized # 401
+    end
   end
 end
